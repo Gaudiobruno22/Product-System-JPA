@@ -3,8 +3,19 @@ package com.system.application.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tb_user")
 public class User implements Serializable{
 
+	@Id
+	//Annotation onde eu Mapeio para o JPA que este campo é Auto Incrementável.
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String email;
