@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.system.application.entities.Category;
 import com.system.application.entities.Order;
+import com.system.application.entities.Product;
 import com.system.application.entities.User;
 import com.system.application.entities.enums.OrderStatus;
 import com.system.application.repositories.CategoryRepository;
 import com.system.application.repositories.OrderRepository;
+import com.system.application.repositories.ProductRepository;
 import com.system.application.repositories.UserRepository;
 
 @Configuration
@@ -29,6 +31,9 @@ public class TestConfig implements CommandLineRunner{
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
+	@Autowired
+	private ProductRepository productRepository;
+	
 	@Override
 	public void run(String... args) throws Exception {
 		User u1 = new User(null, "Marcos Lopes", "marcos@gmail.com", "98885687" , "123456");
@@ -40,10 +45,29 @@ public class TestConfig implements CommandLineRunner{
 		
 		Category cat1 = new Category(null, "Electronics");
 		Category cat2 = new Category(null, "Books");
-		Category cat3 = new Category(null, "Computers"); 
+		Category cat3 = new Category(null, "Computers");
+		
+		Product p1 = new Product(null, "The Lord of the Rings", "Um Livro muito bom e Interessate.", 90.5, "");
+		Product p2 = new Product(null, "Smart TV", "Ela é Esperta. Mas é uma TV.", 2190.0, "");
+		Product p3 = new Product(null, "Macbook Pro", "Notebook de Riquinho muito bom e Barato", 1250.0, "");
+		Product p4 = new Product(null, "PC Gamer", "Para a Galerinha dos Compiuter", 1200.0, "");
+		Product p5 = new Product(null, "Rails for Dummies", "Não sei o que é isso, mas está a venda", 100.99, ""); 
 
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+		
+		//Association of Objects Start's Here:
+		p1.getCategories().add(cat2);
+		p2.getCategories().add(cat1);
+		p2.getCategories().add(cat3);
+		p3.getCategories().add(cat3);
+		p4.getCategories().add(cat3);
+		p5.getCategories().add(cat2);
+		
+		//Saving with the Association of Categories: Table ManyToMany on Database.
+		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+		
 	}
 }
