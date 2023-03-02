@@ -35,7 +35,7 @@ public class Order implements Serializable{
 	private Integer orderStatus;
 	
 	@ManyToOne
-	@JoinColumn(name = "FK_Client_ID")
+	@JoinColumn(name = "client_ID")
 	private User client;
 	
 	@OneToMany(mappedBy = "id.order")
@@ -99,6 +99,14 @@ public class Order implements Serializable{
 
 	public void setPayment(Payment payment) {
 		this.payment = payment;
+	}
+	
+	public Double getTotal() {
+		double sum = 0.0;
+		for(OrderItem i : items) {
+			sum += i.getSubTotal();
+		}
+		return sum;
 	}
 
 	@Override
