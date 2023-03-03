@@ -1,4 +1,4 @@
-package com.system.application.entities;
+ package com.system.application.entities;
 
 import java.io.Serializable;
 import java.util.HashSet;

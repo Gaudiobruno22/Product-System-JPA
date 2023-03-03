@@ -1,4 +1,4 @@
-package com.system.application.services;
+ package com.system.application.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,5 +26,9 @@ public class UserService {
 	
 	public User insert(User obj) {
 		return repository.save(obj);
+	}
+	
+	public void delete(Long Id) {
+		 repository.deleteById(Id);
 	}
 }
